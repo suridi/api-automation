@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "045cc767-3e14-4bd3-9601-f36f2542d64b",
+		"name": "Sampletest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://dummy.restapiexample.com/api/v1/employees",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2459183b-7b1d-4faa-a50d-15bc59291a82",
+						"exec": [
+							"let date = new Date();",
+							"",
+							"",
+							"pm.globals.set(\"currentDate\", date.toGMTString());",
+							"",
+							"// const moment = require('moment');",
+							"// pm.globals.set(\"currentDate\", moment().format(\"MM/DD/YYYY\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "371fdc8c-13dc-4a96-a334-c2f8dd4f424a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checking first element of the array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var headerValue = pm.response.headers.get(\"Date\");",
+							"",
+							"    console.log(headerValue);",
+							"    ",
+							"  pm.expect(headerValue).to.eql(pm.globals.get(\"currentDate\"));",
+							"",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
