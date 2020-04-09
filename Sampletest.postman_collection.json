@@ -9,32 +9,16 @@
 			"name": "http://dummy.restapiexample.com/api/v1/employees",
 			"event": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "2459183b-7b1d-4faa-a50d-15bc59291a82",
-						"exec": [
-							"let date = new Date();",
-							"",
-							"",
-							"pm.globals.set(\"currentDate\", date.toGMTString());",
-							"",
-							"// const moment = require('moment');",
-							"// pm.globals.set(\"currentDate\", moment().format(\"MM/DD/YYYY\"));"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
 					"listen": "test",
 					"script": {
-						"id": "371fdc8c-13dc-4a96-a334-c2f8dd4f424a",
+						"id": "9e058286-cd61-4905-9c50-460398ce1495",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
 							"",
-							"pm.test(\"Checking first element of the array\", function () {",
+							"pm.test(\"Verification of Date\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    var headerValue = pm.response.headers.get(\"Date\");",
 							"",
@@ -43,7 +27,33 @@
 							"  pm.expect(headerValue).to.eql(pm.globals.get(\"currentDate\"));",
 							"",
 							"",
-							"});"
+							"});",
+							"",
+							"let contentType =pm.response.headers.get(\"Content-Type\");",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    // var contentType =pm.response.headers.get(\"Content-Type\");",
+							"    // pm.response.to.have.header(\"Content-Type\");",
+							"pm.expect(contentType).to.eql(\"application/json;charset=utf-8\");",
+							"",
+							"});",
+							"",
+							"console.log(contentType);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a0e08969-6280-4d79-ab85-f7ec3d44c3bd",
+						"exec": [
+							"let date = new Date();",
+							"",
+							"",
+							"pm.globals.set(\"currentDate\", date.toGMTString());",
+							"",
+							"// const moment = require('moment');",
+							"// pm.globals.set(\"currentDate\", moment().format(\"MM/DD/YYYY\"));"
 						],
 						"type": "text/javascript"
 					}
